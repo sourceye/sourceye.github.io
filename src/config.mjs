@@ -8,8 +8,7 @@ const CONFIG = {
   trailingSlash: false,
 
   title: 'sourceye — your code in context',
-  description:
-    'TODO(theo) write description',
+  description: 'TODO(theo) write description',
   defaultImage: defaultImage,
 
   defaultTheme: 'system', // Values: "system" | "light" | "dark" | "light:only" | "dark:only"
