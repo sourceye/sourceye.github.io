@@ -7,8 +7,8 @@ const CONFIG = {
   basePathname: '/',
   trailingSlash: false,
 
-  title: 'sourceye — your code in context',
-  description: 'TODO(theo) write description',
+  title: 'Your code in context',
+  description: 'Your code in context',
   defaultImage: defaultImage,
 
   defaultTheme: 'system', // Values: "system" | "light" | "dark" | "light:only" | "dark:only"
