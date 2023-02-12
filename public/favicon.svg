@@ -2,8 +2,8 @@
   viewBox="0 0 32 32"
   xmlns="http://www.w3.org/2000/svg"
 >
-  <path d="M8 12.5 L 1 16 L 8 19.5 M 24 12.5 L 31 16 L 24 19.5" fill="none" stroke-width="2" stroke="white"></path>
-  <circle cx="50%" cy="50%" r="5" fill="none" stroke-width="3" stroke="white"></circle>
+  <path d="M8 12.5 L 1 16 L 8 19.5 M 24 12.5 L 31 16 L 24 19.5" fill="none" stroke-width="2" stroke="black"></path>
+  <circle cx="50%" cy="50%" r="5" fill="none" stroke-width="3" stroke="black"></circle>
     <style>
     @media (prefers-color-scheme:dark){:root{filter:invert(100%)}}
     </style>
