@@ -1,0 +1,21 @@
+---
+import { Icon } from 'astro-icon';
+---
+
+<input class="rounded-l-full -mr-10 pr-10 pl-4 text-gray-800" placeholder="you@domain.com" />
+<button
+  class="btn btn-primary sm:mb-0 w-full cursor-pointer"
+  title="Send your email to stay up to date with our progress"
+>
+  Follow along
+  <Icon name="tabler:send" class="w-5 h-5 -mr-1.5 ml-1" />
+</button>
+
+<!-- <a class="btn btn-primary sm:mb-0 w-full" href={callToAction?.href} target="_blank" rel="noopener">
+    {callToAction?.icon && (
+      <>
+        <Icon name={callToAction.icon} class="w-5 h-5 mr-1 -ml-1.5" />{' '}
+      </>
+    )}
+    {callToAction?.text}
+  </a> -->

@@ -1,0 +1,22 @@
+---
+import LogoIcon from './LogoIcon.astro';
+---
+
+<div class="ml-20 mr-20 -mt-60"><LogoIcon isFollowable /></div>
+
+<script>
+  document.querySelector('body').addEventListener('mousemove', follow);
+  const eye = document.querySelector('#sourceye');
+  const rect = eye.getBoundingClientRect();
+
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2;
+  function follow() {
+    let radian = Math.atan2(event.pageX - x, event.pageY - y) - Math.PI / 2;
+    let dist = Math.sqrt((x - event.pageX) ** 2 + (y - event.pageY) ** 2);
+    let clampedDist = Math.min(dist, 500) / 500;
+    let tx = Math.cos(radian) * clampedDist;
+    let ty = -Math.sin(radian) * clampedDist;
+    eye.setAttribute('transform', 'translate(' + tx + ', ' + ty + ')');
+  }
+</script>

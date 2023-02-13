@@ -3,10 +3,12 @@ import { SITE } from '~/config.mjs';
 import Layout from '~/layouts/PageLayout.astro';
 
 import Header from '~/components/widgets/Header.astro';
+import EmailCollect from '~/components/widgets/EmailCollect.astro';
 import Hero2 from '~/components/widgets/Hero2.astro';
 import Steps2 from '~/components/widgets/Steps2.astro';
 import Content from '~/components/widgets/Content.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import SauronEye from '../components/SauronEye.astro';
 
 import { headerData } from '~/data';
 
@@ -23,12 +25,10 @@ const meta = {
 
   <!-- Hero2 Widget ******************* -->
 
-  <Hero2
-    callToAction={{ text: 'Follow along', icon: 'tabler:send' }}
-    image={{ src: import('~/assets/images/hero.png'), alt: 'Hero Image' }}
-  >
+  <Hero2>
     <Fragment slot="title">Gain insight in your codebase</Fragment>
-
+    <Fragment slot="callToAction"><EmailCollect /></Fragment>
+    <Fragment slot="image"><SauronEye /></Fragment>
     <Fragment slot="subtitle">
       <span class="hidden sm:inline">
         <span class="font-semibold">sourceye</span> is a next-generation open source code analysis platform offering real
