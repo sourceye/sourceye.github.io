@@ -2,20 +2,20 @@
 import { Icon } from 'astro-icon';
 ---
 
-<input class="rounded-l-full -mr-10 pr-10 pl-4 text-gray-800" placeholder="you@domain.com" />
-<button
-  class="btn btn-primary sm:mb-0 w-full cursor-pointer"
-  title="Send your email to stay up to date with our progress"
->
-  Follow along
-  <Icon name="tabler:send" class="w-5 h-5 -mr-1.5 ml-1" />
-</button>
-
-<!-- <a class="btn btn-primary sm:mb-0 w-full" href={callToAction?.href} target="_blank" rel="noopener">
-    {callToAction?.icon && (
-      <>
-        <Icon name={callToAction.icon} class="w-5 h-5 mr-1 -ml-1.5" />{' '}
-      </>
-    )}
-    {callToAction?.text}
-  </a> -->
+<div class="flex flex-col md:flex-row w-full">
+  <div class="basis-full md:basis-2/3">
+    <input
+      class="text-gray-800 rounded-t-2xl -mb-4 px-6 pt-3 pb-7 text-base font-medium basis-full w-full md:rounded-l-2xl md:rounded-tr-none md:py-3 md:-mr-5 lg:-mr-5 bg-slate-300 inset-10"
+      placeholder="you@domain.com"
+    />
+  </div>
+  <div class="basis-full md:basis-1/3">
+    <button
+      class="rounded-2xl bg-primary items-center inline-flex justify-center shadow-md px-3 py-3 text-base font-medium w-full text-white"
+      title="Send your email to stay up to date with our progress"
+    >
+      Follow along
+      <Icon name="tabler:send" class="w-5 h-5 -mr-1.5 ml-1" />
+    </button>
+  </div>
+</div>
