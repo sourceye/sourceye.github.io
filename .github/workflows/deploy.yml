@@ -30,7 +30,10 @@ jobs:
       - name: Init terraform
         run: terraform init
       - name: Apply terraform
-        run: terraform apply
+        env:
+          TF_VAR_NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          TF_VAR_NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+        run: terraform plan
       - id: output
         run: echo "::set-output name=function_uri::$(terraform output function_uri)"
   build:
