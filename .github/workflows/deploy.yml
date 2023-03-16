@@ -17,6 +17,9 @@ permissions:
 jobs:
   deploy_function:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./serverside
     outputs:
       function_uri: ${{ steps.output.function_uri }}
     steps:
