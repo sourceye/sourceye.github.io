@@ -29,10 +29,14 @@ jobs:
         uses: hashicorp/setup-terraform@v2
       - name: Init terraform
         run: terraform init
+      - name: Prep credentials
+        run: echo $GCP_CREDENTIALS >> credentials.json
+        env:
+          GCP_CREDENTIALS: ${{ secrets.GCP_TERRAFORM_CREDENTIALS }}
       - name: Apply terraform
         env:
-          TF_VAR_NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-          TF_VAR_NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+          TF_VAR_notion_api_key: ${{ secrets.NOTION_API_KEY }}
+          TF_VAR_notion_db_id: ${{ secrets.NOTION_DB_ID }}
         run: terraform plan
       - id: output
         run: echo "::set-output name=function_uri::$(terraform output function_uri)"
