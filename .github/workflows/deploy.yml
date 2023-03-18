@@ -33,13 +33,15 @@ jobs:
         run: echo $GCP_CREDENTIALS >> credentials.json
         env:
           GCP_CREDENTIALS: ${{ secrets.GCP_TERRAFORM_CREDENTIALS }}
+      - name: refresh state
+        run: terraform refresh
       - name: Apply terraform
         env:
           TF_VAR_notion_api_key: ${{ secrets.NOTION_API_KEY }}
           TF_VAR_notion_db_id: ${{ secrets.NOTION_DB_ID }}
         run: terraform plan
       - id: output
-        run: echo "::set-output name=function_uri::$(terraform output function_uri)"
+        run: echo "function_uri=$(terraform output function_uri)" >> $GITHUB_OUTPUT
   build:
     runs-on: ubuntu-latest
     steps:
