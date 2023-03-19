@@ -38,7 +38,7 @@ jobs:
       - name: Init terraform
         run: terraform init
       - name: Apply terraforn
-        run: terraform apply
+        run: terraform apply -auto-approve
       - id: output
         run: echo "function_uri=$(terraform output function_uri)" >> $GITHUB_OUTPUT
 
