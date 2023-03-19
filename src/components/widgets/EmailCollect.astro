@@ -5,13 +5,15 @@ import { Icon } from 'astro-icon';
 <div class="flex w-full flex-col md:flex-row">
   <div class="basis-full md:basis-2/3">
     <input
-      class="inset-10 -mb-4 w-full basis-full rounded-t-xl bg-slate-300 px-6 pt-3 pb-7 text-base font-medium text-gray-800 md:-mr-5 md:rounded-l-2xl md:rounded-tr-none md:py-3"
+      id="email-input"
+      class="inset-10 -mb-4 w-full basis-full rounded-t-xl bg-slate-200 px-6 pt-3 pb-7 text-base font-medium text-gray-800 md:-mr-5 md:rounded-l-2xl md:rounded-tr-none md:py-3"
       placeholder="you@domain.com"
     />
   </div>
   <div class="basis-full md:basis-1/3">
     <button
-      class="inline-flex w-full items-center justify-center rounded-xl bg-primary px-3 py-3 text-base font-medium text-white shadow-md lg:-ml-5 lg:mr-5"
+      id="follow"
+      class="pointer-events-none inline-flex w-full items-center justify-center rounded-xl bg-gray-500 px-3 py-3 text-base font-medium text-gray-100 shadow-md hover:bg-blue-700 lg:-ml-5 lg:mr-5"
       title="Send your email to stay up to date with our progress"
     >
       Follow along
@@ -19,3 +21,56 @@ import { Icon } from 'astro-icon';
     </button>
   </div>
 </div>
+
+<script>
+  const input = document.getElementById('email-input');
+  if (input !== null) {
+    input.addEventListener('input', (e) => updateButton(validate(e.target.value)));
+  }
+
+  function validate(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (email.match(emailRegex)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const button = document.getElementById('follow');
+  function updateButton(enabled: boolean) {
+    if (button !== null) {
+      if (enabled) {
+        button.classList.remove('bg-gray-500');
+        button.classList.remove('text-gray-100');
+        button.classList.remove('pointer-events-none');
+        button.classList.add('bg-primary');
+        button.classList.add('text-white');
+      } else {
+        button.classList.remove('bg-primary');
+        button.classList.remove('text-white');
+        button.classList.add('bg-gray-500');
+        button.classList.add('text-gray-100');
+        button.classList.add('pointer-events-none');
+      }
+    }
+  }
+
+  if (button !== null) {
+    button.addEventListener('click', (e) => handleClick());
+  }
+
+  function handleClick() {
+    fetch(import.meta.env.PUBLIC_FUNCTION_URI, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: input.value }),
+    })
+      .then((response) => response.json())
+      .then((response) => console.log(JSON.stringify(response)));
+  }
+</script>

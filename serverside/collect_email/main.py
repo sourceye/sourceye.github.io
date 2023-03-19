@@ -2,6 +2,7 @@ import functions_framework
 import requests
 import os
 import re
+from google.cloud import error_reporting
 
 NOTION_DB_ID = os.environ.get("NOTION_DB_ID")
 NOTION_QUERY = f"https://api.notion.com/v1/databases/{NOTION_DB_ID}/query"
@@ -70,14 +71,29 @@ def collect_email(email: str) -> None:
 
 @functions_framework.http
 def handle_email_collection(request):
-    from google.cloud import error_reporting
+    # Set CORS headers for the preflight request
+    if request.method == "OPTIONS":
+        # Allows GET requests from any origin with the Content-Type
+        # header and caches preflight response for an 3600s
+        headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET",
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Max-Age": "3600",
+        }
+
+        return ("", 204, headers)
+
+    # Set CORS headers for the main request
+    headers = {"Access-Control-Allow-Origin": "*"}
 
     client = error_reporting.Client()
     try:
         collect_email(request.get_json()["email"])
     except ValueError:
         client.report_exception()
-    return "OK"
+        ("REJECTED", 400, headers)
+    return ("OK", 200, headers)
 
 
 if __name__ == "__main__":

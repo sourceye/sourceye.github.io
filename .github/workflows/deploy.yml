@@ -25,23 +25,23 @@ jobs:
     env:
       TF_VAR_notion_api_key: ${{ secrets.NOTION_API_KEY }}
       TF_VAR_notion_db_id: ${{ secrets.NOTION_DB_ID }}
+      GOOGLE_APPLICATION_CREDENTIALS: credentials.json
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v2
-      - name: Init terraform
-        run: terraform init
       - name: Prep credentials
         run: echo $GCP_CREDENTIALS >> credentials.json
         env:
           GCP_CREDENTIALS: ${{ secrets.GCP_TERRAFORM_CREDENTIALS }}
-      - name: Refresh state
-        run: terraform refresh
+      - name: Init terraform
+        run: terraform init
       - name: Apply terraforn
-        run: terraform plan
+        run: terraform apply
       - id: output
         run: echo "function_uri=$(terraform output function_uri)" >> $GITHUB_OUTPUT
+
   build:
     runs-on: ubuntu-latest
     needs: deploy_function
@@ -51,7 +51,7 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v0
         env:
-          FUNCTION_URI: ${{ needs.deploy_function.outputs.function_uri }}
+          PUBLIC_FUNCTION_URI: ${{ needs.deploy_function.outputs.function_uri }}
 
   deploy:
     needs: build

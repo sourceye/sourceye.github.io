@@ -5,6 +5,10 @@ terraform {
       version = "4.53.1"
     }
   }
+  backend "gcs" {
+    bucket = "landing-page-378522-tf-state"
+    prefix = "terraform/state"
+  }
 }
 
 provider "google" {
@@ -20,10 +24,12 @@ locals {
 }
 
 variable "notion_db_id" {
-  type = string
+  type      = string
+  sensitive = true
 }
 variable "notion_api_key" {
-  type = string
+  type      = string
+  sensitive = true
 }
 
 data "archive_file" "collect_email_zip" {
