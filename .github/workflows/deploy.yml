@@ -40,7 +40,9 @@ jobs:
       - name: Apply terraforn
         run: terraform apply -auto-approve
       - id: function-uri-output
-        run: echo "function_uri=$(terraform output function_uri | tr -d '"' >> $GITHUB_OUTPUT)" >> $GITHUB_OUTPUT
+        run: |
+          export URI=$(terraform output function_uri | tr -d '"')
+          echo "function_uri=$URI" >> $GITHUB_OUTPUT
 
   build:
     runs-on: ubuntu-latest
