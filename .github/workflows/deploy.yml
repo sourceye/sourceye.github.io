@@ -44,8 +44,6 @@ jobs:
           echo "function_uri<<EOF" >> $GITHUB_OUTPUT
           terraform output function_uri | tr -d '"' >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      - name: Sanity check
-        run: echo ${{ steps.function-uri-output.outputs.function_uri }}
 
   build:
     runs-on: ubuntu-latest
