@@ -40,7 +40,7 @@ jobs:
       - name: Apply terraforn
         run: terraform apply -auto-approve
       - id: function-uri-output
-        run: echo "function_uri=https://europe-west1-landing-page-378522.cloudfunctions.net/collect-email" >> $GITHUB_OUTPUT
+        run: terraform output | grep function_uri | tr -d '"' | tr -d ' ' >> $GITHUB_OUTPUT
 
   build:
     runs-on: ubuntu-latest
