@@ -21,7 +21,7 @@ jobs:
       run:
         working-directory: ./serverside
     outputs:
-      function_uri: ${{ steps.output.function_uri }}
+      function_uri: ${{ steps.function-uri-output.outputs.function_uri }}
     env:
       TF_VAR_notion_api_key: ${{ secrets.NOTION_API_KEY }}
       TF_VAR_notion_db_id: ${{ secrets.NOTION_DB_ID }}
@@ -39,13 +39,13 @@ jobs:
         run: terraform init
       - name: Apply terraforn
         run: terraform apply -auto-approve
-      - id: output
+      - id: function-uri-output
         run: |
           echo "function_uri<<EOF" >> $GITHUB_OUTPUT
           terraform output function_uri | tr -d '"' >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
       - name: Sanity check
-        run: echo ${{ steps.output.function_uri }}
+        run: echo ${{ steps.function-uri-output.outputs.function_uri }}
 
   build:
     runs-on: ubuntu-latest
