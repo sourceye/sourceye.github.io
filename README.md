@@ -1,4 +1,4 @@
-# Astro Starter Kit: Basics
+# sourceye - landing page
 
 ```
 npm create astro@latest -- --template basics
