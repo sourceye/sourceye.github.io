@@ -1,8 +1,7 @@
 terraform {
   required_providers {
     google = {
-      source  = "hashicorp/google"
-      version = "4.53.1"
+      version = "~> 6.0.0"
     }
   }
   backend "gcs" {
@@ -58,7 +57,7 @@ resource "google_cloudfunctions_function" "function" {
   entry_point           = "handle_email_collection"
   source_archive_bucket = google_storage_bucket.bucket.name
   source_archive_object = google_storage_bucket_object.object.name
-
+  docker_registry       = "ARTIFACT_REGISTRY"
   environment_variables = {
     "NOTION_DB_ID"   = var.notion_db_id
     "NOTION_API_KEY" = var.notion_api_key
