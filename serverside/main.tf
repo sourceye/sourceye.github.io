@@ -12,8 +12,6 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("credentials.json")
-
   project = "landing-page-378522"
   region  = "europe-west1"
   zone    = "europe-west1-c"

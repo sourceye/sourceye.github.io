@@ -25,13 +25,7 @@ def add_email(email: str) -> None:
             "Email": {"email": email},
         },
     }
-    headers = {
-        "accept": "application/json",
-        "Notion-Version": "2022-06-28",
-        "content-type": "application/json",
-        "Authorization": f"Bearer {NOTION_API_KEY}",
-    }
-    response = requests.post(NOTION_ADD, json=data, headers=HEADERS)
+    requests.post(NOTION_ADD, json=data, headers=HEADERS)
 
 
 def email_exists(email: str) -> bool:
